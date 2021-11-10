@@ -1,17 +1,21 @@
-Es un pequeño procesador de hojas de cálculo en modo texto. Lee por la entrada estándar una hoja de cálculo, con las celdas separadas por tabuladores, que contienen fórmulas en "s-expressions" (tipo lisp), con la salvedad de que sólo intenta evaluar una función si es válida, en el caso contrario evalúa el contenido de la lista y devuelve la lista y que los operadores aritméticos se aplican de forma recursiva a las sublistas.
+Minimalistic spreadhseet processor for the console.
 
-Operaciones soportadas:
+It reads a spreadsheet tsv (tab-separated-values) from stdin, evaluates it and prints the result to stdout.
+
+The formulae are input as "s-expressions" (like LISP or Scheme); and are evaluated recursively. If a list does not start with a valid operator (see below), the result is a list itself (with each member being evaluated).
+
+Supported opperators:
 
 ```
-+ : suma
-- : resta
-* : producto
++ : addition
+- : substraction
+* : multiplication
 / : división
-@ : referencia a otra celda
-# : rango de celdas
+@ : cell reference
+# : cell range
 ```
 
-Ejemplo de entrada (las columnas están separadas con tabuladores):
+Example input:
 
 ```
 (@ 1 1)	2	0
@@ -19,7 +23,7 @@ Ejemplo de entrada (las columnas están separadas con tabuladores):
 (+ (# 0 0 1 2))
 ```
 
-Ejemplo de salida:
+Output for the example above:
 ```
 2.5	2	0
 0.5	2.5	3
